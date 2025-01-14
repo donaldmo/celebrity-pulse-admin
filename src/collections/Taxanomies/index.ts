@@ -1,7 +1,7 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload'
 
 const Categories: CollectionConfig = {
-  slug: 'celebrity_types',
+  slug: 'taxanomies',
   admin: {
     useAsTitle: 'title',
     group: 'Taxonomy'

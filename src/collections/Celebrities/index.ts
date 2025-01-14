@@ -1,4 +1,5 @@
-import { CollectionConfig, FieldHook } from 'payload/types'
+// import { CollectionConfig, FieldHook } from 'payload/types'
+import type { CollectionConfig, FieldHook } from 'payload'
 
 const generateSlug: FieldHook = ({ value, originalDoc, data }) => {
   if (typeof value === 'string' && value.trim() !== '') {
@@ -53,7 +54,7 @@ const Celebrities: CollectionConfig = {
       name: 'celebrityType',
       type: 'relationship',
       label: 'Type',
-      relationTo: 'celebrity_types',
+      relationTo: 'taxanomies',
       required: true,
     },
   ],

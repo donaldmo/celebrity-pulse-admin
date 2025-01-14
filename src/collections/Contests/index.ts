@@ -1,9 +1,9 @@
-import { CollectionConfig } from 'payload/types'
+import { CollectionConfig } from 'payload'
 
 const Contests: CollectionConfig = {
   slug: 'contests',
   admin: {
-    useAsTitle: 'name', 
+    useAsTitle: 'name',
     defaultColumns: ['name', 'starting_date', 'ending_date', 'updatedAt'],
     group: "Content"
   },

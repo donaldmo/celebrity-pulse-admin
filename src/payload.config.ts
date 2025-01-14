@@ -7,13 +7,13 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Users } from './collections/Users'
+import Users from './collections/Users'
 import { Media } from './collections/Media'
 
 import Fans from './collections/Fans'
 import Celebrities from './collections/Celebrities'
 import Contests from './collections/Contests'
-import Categories from './collections/Taxanomies/Categories'
+import Taxanomies from './collections/Taxanomies'
 import Tickets from './collections/Products/Tickets'
 
 
@@ -27,7 +27,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Fans, Media, Contests, Celebrities, Categories, Tickets],
+  collections: [Users, Fans, Media, Contests, Celebrities, Taxanomies, Tickets],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
