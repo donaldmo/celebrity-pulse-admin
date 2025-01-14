@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-const Categories: CollectionConfig = {
-  slug: 'taxanomies',
+const Taxanomies: CollectionConfig = {
+  slug: 'taxonomies',
   admin: {
     useAsTitle: 'title',
     group: 'Taxonomy'
@@ -17,4 +17,4 @@ const Categories: CollectionConfig = {
   ],
 }
 
-export default Categories
+export default Taxanomies

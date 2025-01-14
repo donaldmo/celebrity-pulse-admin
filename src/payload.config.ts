@@ -9,6 +9,7 @@ import sharp from 'sharp'
 
 import Users from './collections/Users'
 import { Media } from './collections/Media'
+import Categories from './collections/Categories'
 
 import Fans from './collections/Fans'
 import Celebrities from './collections/Celebrities'
@@ -27,7 +28,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Fans, Media, Contests, Celebrities, Taxanomies, Tickets],
+  collections: [Users, Fans, Media, Contests, Categories, Taxanomies, Celebrities, Tickets],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
