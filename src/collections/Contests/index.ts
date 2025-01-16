@@ -56,7 +56,7 @@ const Contests: CollectionConfig = {
             {
               name: 'celebrities',
               type: 'relationship',
-              relationTo: 'media',
+              relationTo: 'celebrities',
               hasMany: true,
               required: true,
               admin: {

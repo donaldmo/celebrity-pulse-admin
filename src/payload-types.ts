@@ -9,10 +9,16 @@
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    fans: FanAuthOperations;
   };
   collections: {
     users: User;
+    fans: Fan;
     media: Media;
+    contests: Contest;
+    taxanomies: Taxanomy;
+    celebrities: Celebrity;
+    tickets: Ticket;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -20,7 +26,12 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    fans: FansSelect<false> | FansSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    contests: ContestsSelect<false> | ContestsSelect<true>;
+    taxanomies: TaxanomiesSelect<false> | TaxanomiesSelect<true>;
+    celebrities: CelebritiesSelect<false> | CelebritiesSelect<true>;
+    tickets: TicketsSelect<false> | TicketsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -31,15 +42,37 @@ export interface Config {
   globals: {};
   globalsSelect: {};
   locale: null;
-  user: User & {
-    collection: 'users';
-  };
+  user:
+    | (User & {
+        collection: 'users';
+      })
+    | (Fan & {
+        collection: 'fans';
+      });
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
 export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface FanAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -76,6 +109,26 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fans".
+ */
+export interface Fan {
+  id: string;
+  name: string;
+  image_url: string;
+  image: string | Media;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
@@ -95,6 +148,58 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contests".
+ */
+export interface Contest {
+  id: string;
+  name: string;
+  description: string;
+  starting_date: string;
+  ending_date: string;
+  celebrities: (string | Celebrity)[];
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "celebrities".
+ */
+export interface Celebrity {
+  id: string;
+  name: string;
+  slug?: string | null;
+  votes: number;
+  description: string;
+  media: string | Media;
+  celebrityType: string | Taxanomy;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "taxanomies".
+ */
+export interface Taxanomy {
+  id: string;
+  title?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tickets".
+ */
+export interface Ticket {
+  id: string;
+  amount: number;
+  price: number;
+  currency: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -105,14 +210,39 @@ export interface PayloadLockedDocument {
         value: string | User;
       } | null)
     | ({
+        relationTo: 'fans';
+        value: string | Fan;
+      } | null)
+    | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'contests';
+        value: string | Contest;
+      } | null)
+    | ({
+        relationTo: 'taxanomies';
+        value: string | Taxanomy;
+      } | null)
+    | ({
+        relationTo: 'celebrities';
+        value: string | Celebrity;
+      } | null)
+    | ({
+        relationTo: 'tickets';
+        value: string | Ticket;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'fans';
+        value: string | Fan;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -122,10 +252,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: string;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'fans';
+        value: string | Fan;
+      };
   key?: string | null;
   value?:
     | {
@@ -167,6 +302,24 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "fans_select".
+ */
+export interface FansSelect<T extends boolean = true> {
+  name?: T;
+  image_url?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -182,6 +335,54 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contests_select".
+ */
+export interface ContestsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  starting_date?: T;
+  ending_date?: T;
+  celebrities?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "taxanomies_select".
+ */
+export interface TaxanomiesSelect<T extends boolean = true> {
+  title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "celebrities_select".
+ */
+export interface CelebritiesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  votes?: T;
+  description?: T;
+  media?: T;
+  celebrityType?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tickets_select".
+ */
+export interface TicketsSelect<T extends boolean = true> {
+  amount?: T;
+  price?: T;
+  currency?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

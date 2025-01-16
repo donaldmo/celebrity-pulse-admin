@@ -54,7 +54,7 @@ const Celebrities: CollectionConfig = {
       name: 'celebrityType',
       type: 'relationship',
       label: 'Type',
-      relationTo: 'media',
+      relationTo: 'taxanomies',
       required: true,
     },
   ],

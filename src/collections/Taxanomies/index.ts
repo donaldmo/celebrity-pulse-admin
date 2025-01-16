@@ -1,10 +1,10 @@
 import type { CollectionConfig } from 'payload'
 
 const Taxanomies: CollectionConfig = {
-  slug: 'taxonomies',
+  slug: 'taxanomies',
   admin: {
     useAsTitle: 'title',
-    group: 'Taxonomy'
+    group: 'Taxanomy'
   },
   access: {
     read: () => true,
