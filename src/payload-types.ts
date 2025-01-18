@@ -195,6 +195,10 @@ export interface Ticket {
   amount: number;
   price: number;
   currency: string;
+  /**
+   * Use this field to manually order the tickets. Lower numbers appear first.
+   */
+  sortOrder: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -381,6 +385,7 @@ export interface TicketsSelect<T extends boolean = true> {
   amount?: T;
   price?: T;
   currency?: T;
+  sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }
