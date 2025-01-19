@@ -154,6 +154,7 @@ export interface Contest {
   id: string;
   name: string;
   description: string;
+  media: string | Media;
   starting_date: string;
   ending_date: string;
   celebrities: (string | Celebrity)[];
@@ -347,6 +348,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface ContestsSelect<T extends boolean = true> {
   name?: T;
   description?: T;
+  media?: T;
   starting_date?: T;
   ending_date?: T;
   celebrities?: T;
