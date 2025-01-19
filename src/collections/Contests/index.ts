@@ -29,8 +29,7 @@ const Contests: CollectionConfig = {
             },
             {
               name: 'media',
-              type: 'upload',
-              relationTo: 'media',
+              type: 'text',
               required: true,
             },
           ],

@@ -154,7 +154,7 @@ export interface Contest {
   id: string;
   name: string;
   description: string;
-  media: string | Media;
+  media: string;
   starting_date: string;
   ending_date: string;
   celebrities: (string | Celebrity)[];
@@ -172,7 +172,7 @@ export interface Celebrity {
   slug?: string | null;
   votes: number;
   description: string;
-  media: string | Media;
+  media: string;
   celebrityType: string | Taxanomy;
   updatedAt: string;
   createdAt: string;
