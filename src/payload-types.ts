@@ -158,6 +158,13 @@ export interface Contest {
   starting_date: string;
   ending_date: string;
   celebrities: (string | Celebrity)[];
+  votes?:
+    | {
+        voteCount: number;
+        celebrity: string | Celebrity;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -352,6 +359,13 @@ export interface ContestsSelect<T extends boolean = true> {
   starting_date?: T;
   ending_date?: T;
   celebrities?: T;
+  votes?:
+    | T
+    | {
+        voteCount?: T;
+        celebrity?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

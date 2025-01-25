@@ -70,6 +70,28 @@ const Contests: CollectionConfig = {
             },
           ],
         },
+        {
+          label: 'Votes',  // Fourth tab for votes
+          fields: [
+            {
+              name: 'votes',
+              type: 'array',  // Define it as a list/array
+              fields: [
+                {
+                  name: 'voteCount',
+                  type: 'number',
+                  required: true,
+                },
+                {
+                  name: 'celebrity',
+                  type: 'relationship',
+                  relationTo: 'celebrities',
+                  required: true,
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
   ],
